@@ -1,40 +1,58 @@
 # copilot-gsd-agents
 
-Centralised GitHub Copilot agent definitions for the **GSD (Get Shit Done)** workflow.
+Centralised GitHub Copilot configuration for the **GSD (Get Shit Done)** workflow.
 
-This repository is consumed as a **Git submodule** inside any project that uses the GSD agent stack.
-It is mounted at `.github/agents/` so VS Code Copilot picks up all agent files automatically.
+This repository is consumed as a **Git submodule** mounted at `.github/` inside any consumer project.
+VS Code Copilot then picks up all agent and prompt files automatically.
+
+## Structure
+
+```
+agents/    — GSD agent definitions (*.agent.md)
+prompts/   — GSD prompt files (*.prompt.md)
+```
 
 ## Agents
 
 | File | Agent | Role |
 |------|-------|------|
-| `gsd.orchestrator.agent.md` | 🧠 Mother (GSD Coordinator) | Central orchestration — spawns all other agents |
-| `gsd.researcher.agent.md` | 🔎 Ripley (GSD Researcher) | Brownfield investigation, produces RESEARCH.md |
-| `gsd.planner.agent.md` | ♟️ Bishop (GSD Planner) | Decomposes phases into atomic PLAN.md files |
-| `gsd.executor.agent.md` | 👾 Xenomorph (GSD Executor) | Implements exactly one PLAN.md, no improvisation |
-| `gsd.verifier.agent.md` | ✅ Hicks (GSD Verifier) | Ground-truth verification against done criteria |
-| `gsd.integration.agent.md` | 🔗 Ash (GSD Integration) | Bridge to Jira, Confluence, and Figma via MCP |
+| `agents/gsd.orchestrator.agent.md` | 🧠 Mother (GSD Coordinator) | Central orchestration — spawns all other agents |
+| `agents/gsd.researcher.agent.md` | 🔎 Ripley (GSD Researcher) | Brownfield investigation, produces RESEARCH.md |
+| `agents/gsd.planner.agent.md` | ♟️ Bishop (GSD Planner) | Decomposes phases into atomic PLAN.md files |
+| `agents/gsd.executor.agent.md` | 👾 Xenomorph (GSD Executor) | Implements exactly one PLAN.md, no improvisation |
+| `agents/gsd.verifier.agent.md` | ✅ Hicks (GSD Verifier) | Ground-truth verification against done criteria |
+| `agents/gsd.integration.agent.md` | 🔗 Ash (GSD Integration) | Bridge to Jira, Confluence, and Figma via MCP |
+
+## Prompts
+
+| File | Description |
+|------|-------------|
+| `prompts/gsd-new-project.prompt.md` | Initialize a new project or milestone |
+| `prompts/gsd-plan-phase.prompt.md` | Plan a phase — research + atomic PLAN.md files |
+| `prompts/gsd-execute-phase.prompt.md` | Execute a phase — dependency waves + verification |
+| `prompts/gsd-verify-work.prompt.md` | Interactive user acceptance testing |
+| `prompts/gsd-quick.prompt.md` | Quick mode for ad-hoc tasks |
+| `prompts/gsd-progress.prompt.md` | Show current project progress |
 
 ## Usage as submodule
 
 ```bash
-# Add to a new project
-git submodule add https://github.com/GuessMo/copilot-gsd-agents.git .github/agents
+# Add to a new project (mounts the entire .github/ directory)
+git submodule add https://github.com/GuessMo/copilot-gsd-agents.git .github
 
 # After cloning a project that already uses this submodule
 git submodule update --init
 ```
 
-## Update agents across all projects
+## Update across all projects
 
 ```bash
 # Inside a consumer project
-cd .github/agents
+cd .github
 git pull origin main
-cd ../..
-git add .github/agents
-git commit -m "chore(agents): update GSD agent submodule"
+cd ..
+git add .github
+git commit -m "chore(agents): update GSD submodule"
 ```
 
 ## Remote
