@@ -21,7 +21,7 @@ Fully understand what should be built and create a structured, phased roadmap fo
    Ask follow-up questions. Don't stop until the picture is clear.
 
 2. **Map codebase (optional)** — Ask the user: _"Is this an existing codebase? If yes, I'll analyse it first."_
-   Only if yes: run **Ripley** with the instruction: _"Analyse the full codebase: stack, architecture, conventions, key patterns. Create `.planning/CODEBASE.md`._"
+   Only if yes: run **🔎 Ripley (GSD Researcher)** with the instruction: _"Analyse the full codebase: stack, architecture, conventions, key patterns. Create `.planning/CODEBASE.md`."_
    For greenfield projects, skip this step entirely.
 
 3. **Create planning files yourself** in `.planning/` (no subagent — you have all the information from the intake):

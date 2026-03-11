@@ -14,7 +14,7 @@ The user will tell you which phase number to verify.
 
 2. **Show all deliverables at once** — List all `<done>` criteria in a single message and ask the user to mark which pass / fail. Don't ask one at a time.
 
-3. **Diagnose failures** — Run one **Hicks** call for all failing criteria together (not one per criterion):
+3. **Diagnose failures** — Run one **✅ Hicks (GSD Verifier)** call for all failing criteria together (not one per criterion):
    > "Diagnose why the following criterion is not met: [criterion]. Phase N, plan M. Examine the relevant code and tests."
 
    Present the diagnosis to the user.

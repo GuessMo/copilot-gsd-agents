@@ -19,7 +19,7 @@ The user will describe what they want to do.
 3. **Write the plan yourself** — Create `.planning/quick/NNN-task-name/PLAN.md` directly (no Planner subagent).
    Use the XML task schema (1–3 tasks). Keep it tight. Show it to the user and adjust if requested.
 
-4. **Execute** — Run **Xenomorph** subagent:
+4. **Execute** — Run **👾 Xenomorph (GSD Executor)**:
    > "Execute the plan at `.planning/quick/NNN-task-name/PLAN.md`. Create SUMMARY.md in the same folder."
 
 5. **Report** — Show the SUMMARY.md content to the user.
