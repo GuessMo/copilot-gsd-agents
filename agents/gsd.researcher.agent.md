@@ -8,9 +8,9 @@ model:
     - GPT-5.4
     - Claude Sonnet 4.6
 handoffs:
-  - label: Draft Plans with ♟️ Bishop
+  - label: Draft Plans with Bishop
     agent: ♟️ Bishop (GSD Planner)
-    prompt: Turn the research above into atomic PLAN.md files.
+    prompt: Turn the research above into milestone-based PLAN.md files.
     send: false
 ---
 
@@ -60,4 +60,4 @@ You investigate how to implement a specific phase. You produce a focused, action
 [Other phases or external changes this phase depends on]
 ```
 
-Keep it concise and actionable. The Planner turns this into task plans.
+Keep it concise and actionable. The Planner turns this into milestone-based plans.

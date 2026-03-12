@@ -19,7 +19,7 @@ The user will tell you which phase number to execute (e.g. "execute phase 1" or 
    - Continue until all plans are assigned
 
 3. **Execute wave by wave**
-   For each wave, run one **👾 Xenomorph (GSD Executor)** subagent per plan:
+   For each wave, run one **Xenomorph** subagent per plan:
    > "Execute the plan at `.planning/N-M-PLAN.md`. Create `.planning/N-M-SUMMARY.md`."
 
    Wait for all plans in a wave to complete before starting the next wave.
@@ -28,7 +28,7 @@ The user will tell you which phase number to execute (e.g. "execute phase 1" or 
 
 5. **Self-check** — Read all `N-M-SUMMARY.md` files and compare against `<done>` criteria from the plans:
    - All criteria met with no reported blockers → write a brief `.planning/N-VERIFICATION.md` (status: PASS) yourself
-   - Any blocker or failed criterion → run **✅ Hicks (GSD Verifier)** for that specific plan only:
+   - Any blocker or failed criterion → run **Hicks** for that specific plan only:
      > "Verify plan `.planning/N-M-PLAN.md`. The executor reported this blocker: [describe]. Diagnose and append fix tasks to `.planning/N-VERIFICATION.md`."
 
 6. **Report results**
