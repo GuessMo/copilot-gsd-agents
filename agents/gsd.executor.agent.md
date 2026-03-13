@@ -8,7 +8,7 @@ model:
     - Claude Sonnet 4.6
     - GPT-5.4
 handoffs:
-  - label: Verify with Hicks
+  - label: Submit to Hicks for Final Verification
     agent: ✅ Hicks (GSD Verifier)
     prompt: Verify the completed plan, check regressions, and report gaps.
     send: false

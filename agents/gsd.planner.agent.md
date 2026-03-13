@@ -9,11 +9,11 @@ model:
     - GPT-5.4
     - Claude Sonnet 4.6
 handoffs:
-  - label: Research with Ripley
+  - label: Investigate Constraints with Ripley
     agent: 🔎 Ripley (GSD Researcher)
     prompt: Research the missing implementation details and constraints for this phase.
     send: false
-  - label: Execute with Xenomorph
+  - label: Execute Approved Plan with Xenomorph
     agent: 👾 Xenomorph (GSD Executor)
     prompt: Implement the approved PLAN.md file.
     send: false

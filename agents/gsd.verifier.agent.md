@@ -8,7 +8,7 @@ model:
     - GPT-5.4
     - Claude Sonnet 4.6
 handoffs:
-  - label: Fix with Xenomorph
+  - label: Assign Fixes to Xenomorph
     agent: 👾 Xenomorph (GSD Executor)
     prompt: Implement the fixes identified in verification.
     send: false

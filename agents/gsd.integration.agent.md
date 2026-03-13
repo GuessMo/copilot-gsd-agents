@@ -9,9 +9,9 @@ model:
     - Claude Sonnet 4.6
     - GPT-5.4
 handoffs:
-  - label: Return to Mother
+  - label: Return Findings to Mother
     agent: 🧠 Mother (GSD Coordinator)
-    prompt: Continue orchestration with the findings I returned.
+    prompt: Resume orchestration with the MCP results returned above.
     send: false
 ---
 
@@ -24,6 +24,8 @@ You are the bridge to external services. You interact with **Jira**, **Confluenc
 ## Why this agent exists
 
 MCP tools are only available in the primary chat session. Subagents spawned via the `agent` tool do not inherit MCP server bindings — they fall back to terminal/curl workarounds.
+
+> **Note — no static Mother handoff labels:** Ash is intentionally not listed as a static handoff in Mother's frontmatter. Static UI handoff labels cannot be conditioned on actual MCP tool availability and would appear even when no MCP server is configured or running. Invoke Ash via explicit handoff only after confirming an MCP-bound primary session is active.
 
 This agent must therefore be reached via **handoff**, which keeps the same session context active.
 
@@ -70,22 +72,24 @@ For errors, state: tool called, error message, and suggested next step.
 
 If a Figma or Atlassian request fails because the MCP server is unreachable, the tool is missing, or authentication is unavailable, do not stop at the raw error. Return a precise step-by-step recovery checklist that covers the runtime conditions of this workspace.
 
+> **Important — when this checklist is reliable:** This checklist only works as intended when Ash is running in a **primary chat session** with MCP tools actually bound. When Ash is spawned as a subagent via the `agent` tool, MCP server bindings are not inherited — the checklist can still be returned as text, but the tools themselves will not be executable. The env-based setup makes the Atlassian startup path deterministic: either the required environment variables are present when a new chat is opened and the wrapper starts cleanly, or the wrapper exits with a clear error message — no silent hanging, no interactive prompt waiting for input.
+
 Use this order:
 
-1. Confirm the relevant MCP server is configured in `.vscode/mcp.json` and that MCP auto-start is enabled in `.vscode/settings.json`.
-2. Confirm VS Code was started from a zsh environment that loaded the user's shell configuration, and verify that the required credentials were available before VS Code launched.
-3. For Atlassian, explicitly mention `ATLASSIAN_EMAIL` and `ATLASSIAN_API_TOKEN`. For Figma, mention the locally configured Figma credential expected by the user's setup.
-4. If credentials were added or changed after VS Code was already open, explain that the current VS Code process may not inherit them and that a fresh VS Code session started from the correctly configured zsh shell is the reliable fix.
-5. Confirm the startup order: shell config and credentials first, then VS Code launch, then MCP server startup, then Copilot agent chat creation.
-6. If the MCP servers show as running but the current chat still does not expose the tools, instruct the user to close the current chat and start a completely new Copilot agent chat. Do not suggest continuing in the same thread and hoping the tool list updates live.
+1. Confirm the relevant MCP server is configured in `.vscode/mcp.json` and that `.vscode/settings.json` sets `chat.mcp.autoStart: "onlyNew"`. With `onlyNew`, VS Code starts the MCP server automatically when a **new** primary chat session is opened — existing chats do not receive the tools retroactively.
+2. For Atlassian: confirm that `ATLASSIAN_EMAIL` and `ATLASSIAN_API_TOKEN` are set as **environment variables** in the shell from which VS Code was launched. These variables are **not** entered via interactive prompt — they must be present in the VS Code process environment at startup time.
+3. Confirm VS Code was started from a zsh environment that loaded the user's shell configuration (e.g. `~/.zshrc`). The Atlassian wrapper script (`.vscode/start-atlassian-mcp.sh`) reads `ATLASSIAN_EMAIL` and `ATLASSIAN_API_TOKEN` directly from the process environment and performs a fail-fast check — if either variable is missing, the wrapper exits immediately with a clear error message.
+4. If credentials were added or changed after VS Code was already open, explain that the current VS Code process will not inherit them automatically. The reliable fix is: close VS Code fully → run `source ~/.zshrc` in the terminal → relaunch VS Code from that shell → confirm the MCP server starts cleanly.
+5. Confirm the startup order: shell config with credentials loaded → VS Code launch → MCP server visible and running in the MCP panel (use `MCP: List Servers` in the Command Palette to verify) → open a **new** primary Copilot chat. Because `onlyNew` only binds tools to fresh sessions, a new chat must be opened *after* the server is confirmed running.
+6. If the MCP server shows as running but the current chat still does not expose the tools, the session was opened before the server was ready. Close the current chat and start a completely new primary Copilot agent chat. Do not suggest continuing in the same thread and hoping the tool list updates live.
 7. If a fresh chat still does not see the tools, instruct the user to run `Developer: Reload Window`, then start another new chat.
 8. End with the most likely cause in the current situation and the single next action the user should take first.
 
 When possible, distinguish between these failure modes:
 
-- MCP server not running
-- credentials missing from the VS Code process
-- tool list not bound into the current chat session
+- MCP server not running (check for wrapper exit message in the MCP output log)
+- `ATLASSIAN_EMAIL` or `ATLASSIAN_API_TOKEN` missing from the VS Code process environment
+- tool list not bound into the current chat session (subagent limitation)
 - remote service reachable but permission denied
 
 ## Example invocations (from the orchestrator)

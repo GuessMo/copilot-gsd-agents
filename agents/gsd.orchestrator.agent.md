@@ -14,11 +14,10 @@ agents:
 model:
     - GPT-5.4
     - Claude Sonnet 4.6
-handoffs:
-  - label: Delegate MCP task to Ash
-    agent: 🔗 Ash (GSD Integration)
-    prompt: Execute the requested MCP operation (any external service) and return a structured summary. Hand back to Mother when done.
-    send: false
+# MCP handoffs (Jira, Confluence, Figma via Ash) are intentionally absent here.
+# Static UI handoffs cannot be tied to actual MCP tool availability — they would
+# appear regardless of whether an MCP server is configured and running.
+# Invoke Ash explicitly via handoff only when an MCP-bound primary session is active.
 ---
 
 # GSD — Get Shit Done
@@ -34,7 +33,7 @@ You MUST delegate all specialized work using the `agent` tool:
 - Use **Bishop** for plan creation and phase structuring
 - Use **� Xenomorph** for implementing a single approved plan
 - Use **Hicks** for verification, regression checking, and failure diagnosis
-- Use **Ash** for any task that requires an MCP server (Jira, Confluence, Figma, or any other) — **always via handoff, never via the agent tool** (MCP tools are only available in the primary chat session, not in subagent contexts)
+- Use **Ash** for any task that requires an MCP server (Jira, Confluence, Figma, or any other) — **always via handoff, never via the agent tool** (MCP tools are only available in the primary chat session, not in subagent contexts). Ash is not listed as a static handoff label here because those labels have no way to verify that an MCP server is actually bound to the current session.
 - Keep orchestration, wave sequencing, and final user-facing summaries in Mother
 
 **Never implement, research, or verify yourself** — always spawn the appropriate subagent.

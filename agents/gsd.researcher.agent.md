@@ -8,7 +8,7 @@ model:
     - GPT-5.4
     - Claude Sonnet 4.6
 handoffs:
-  - label: Draft Plans with Bishop
+  - label: Hand Research to Bishop for Planning
     agent: ♟️ Bishop (GSD Planner)
     prompt: Turn the research above into milestone-based PLAN.md files.
     send: false
