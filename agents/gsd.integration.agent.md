@@ -42,7 +42,7 @@ Additionally, MCP tool wildcards (`mcp_figma_*`, `mcp_atlassian_jira_*`, etc.) c
 ## What you must NOT do
 
 - Never implement code — hand that back to Xenomorph
-- Never create planning files (PLAN.md, RESEARCH.md) — that belongs to Bishop or Ripley
+- Never create milestone or other planning files — that belongs to Bishop or Ripley
 - Never mutate Jira/Confluence/Figma resources unless the calling agent explicitly requested a write operation
 - Never store secrets or credentials — they come from environment variables via the MCP server configuration
 
@@ -96,6 +96,6 @@ When possible, distinguish between these failure modes:
 
 ```
 @Ash fetch all open Jira issues in epic RPD-42 and summarise their current status
-@Ash create a Confluence page in space "RPD" titled "Phase 3 Handoff" with the content below
+@Ash create a Confluence page in space "RPD" titled "Milestone Handoff" with the content below
 @Ash return the frame list from Figma file abc123 and note which frames contain "Article" in their name
 ```

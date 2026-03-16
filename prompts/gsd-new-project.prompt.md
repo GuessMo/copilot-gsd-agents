@@ -1,6 +1,6 @@
 ---
 agent: 'agent'
-description: 'GSD: Initialize a new project or milestone. Asks questions, maps the codebase, and creates PROJECT.md, REQUIREMENTS.md, ROADMAP.md, STATE.md in .planning/.'
+description: 'GSD: Initialize a new project or milestone backlog. Asks questions, maps the codebase if needed, and creates PROJECT.md, REQUIREMENTS.md, STATE.md, plus the first milestone-*.md files in .planning/.'
 tools: ['read', 'edit', 'search', 'agent']
 ---
 
@@ -8,7 +8,7 @@ You are running the **GSD new-project** flow.
 
 ## Goal
 
-Fully understand what should be built and create a structured, phased roadmap for it.
+Fully understand what should be built and create an initial milestone backlog for it.
 
 ## Steps
 
@@ -21,10 +21,10 @@ Fully understand what should be built and create a structured, phased roadmap fo
    Ask follow-up questions. Don't stop until the picture is clear.
 
 2. **Map codebase (optional)** — Ask the user: _"Is this an existing codebase? If yes, I'll analyse it first."_
-   Only if yes: run **Ripley** with the instruction: _"Analyse the full codebase: stack, architecture, conventions, key patterns. Create `.planning/CODEBASE.md`._"
+   Only if yes: run **Ripley** with the instruction: _"Analyse the full codebase: stack, architecture, conventions, key patterns. Pass findings back as context — no separate file needed unless the scope is large."_
    For greenfield projects, skip this step entirely.
 
-3. **Create planning files yourself** in `.planning/` (no subagent — you have all the information from the intake):
+3. **Create planning context files yourself** in `.planning/` (no subagent — you have all the information from the intake):
 
    **`PROJECT.md`**
    ```markdown
@@ -55,17 +55,6 @@ Fully understand what should be built and create a structured, phased roadmap fo
    - ...
    ```
 
-   **`ROADMAP.md`**
-   ```markdown
-   # Roadmap
-
-   ## Phase 1: [Name] [ ]
-   [1–2 sentences: what gets built, what requirements it covers]
-
-   ## Phase 2: [Name] [ ]
-   ...
-   ```
-
    **`STATE.md`**
    ```markdown
    # State
@@ -80,7 +69,16 @@ Fully understand what should be built and create a structured, phased roadmap fo
    - none
    ```
 
-4. **Present the roadmap** to the user for approval. Adjust phases if needed.
+4. **Create the first milestone files** — Run **Bishop** with the intake results and context files:
+   > "Create the first `milestone-*.md` files in `.planning/` for this new project using speaking names (e.g. `milestone-1-initial-setup.md`). Read `.planning/PROJECT.md`, `.planning/REQUIREMENTS.md`, and `.planning/README.md`. Start with `milestone-1-slug.md` and create as many open milestones as needed to cover the v1 scope (each covering a vertical slice). Status: `open`."
+
+5. **Present the milestone backlog** to the user for approval. Adjust milestones if needed.
 
 Once approved, tell the user:
-_"Roadmap approved. Next: use `gsd plan-phase 1` or open the GSD agent and type `gsd plan-phase 1`."_
+_"Milestone backlog ready. Two options for the next step:_
+
+_**A — Optional: High Accuracy Plan-Review** — Ask Hicks to review the plan before any code is written: scope gaps, ambiguities, oversized milestones, weak `## Verify`/`## Done` criteria, incomplete `## To-dos`. No implementation, no tests — pure planning-quality check._
+
+_**B — Execute** — Run `gsd execute-phase` or open the GSD orchestrator to start working through the milestones."_
+
+> **Legacy note:** This prompt previously created a `ROADMAP.md` with numbered phases. The active path is now `milestone-*.md` files directly. `ROADMAP.md` files from earlier projects are preserved as legacy context but are not created for new projects.
