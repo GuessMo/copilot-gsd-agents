@@ -110,9 +110,13 @@ Vor dem Handeln immer relevante Dateien lesen:
 2. Bestimme den nächsten Ausführungskandidaten:
    - Hat ein Meilenstein `status: current` → das ist der Kandidat
    - Sonst → der erste Meilenstein mit `status: open`
-3. Starte einen **👾 Xenomorph** für den Kandidaten:
+3. Führe einen Größen- und Risiko-Preflight auf dem Kandidaten aus, bevor du **👾 Xenomorph** startest:
+   - Lies den Kandidaten vollständig
+   - Ist er ein Umbrella-Meilenstein oder zu grob geschnitten, **nicht ausführen**. Typische Signale: mehr als 6 Dateien, mehr als 4 To-dos, mehrere unabhängige Änderungsachsen (z. B. UI-Umbau plus State-Logik plus Aktionsmigration plus Tests), oder Formulierungen wie „vollständig ersetzen", „zusammenführen", „Umbau" über mehrere Oberflächen hinweg
+   - In diesem Fall **Bishop** starten und den Kandidaten in kleinere, sequentielle Einschub-Meilensteine zerlegen lassen. Den Nutzer anschließend mit den neu erzeugten Teil-Meilensteinen zurückholen, statt Xenomorph in den zu großen Schritt zu schicken
+4. Starte einen **👾 Xenomorph** für den Kandidaten nur dann, wenn der Preflight ihn als klein genug bewertet:
    > "Execute the milestone at `.planning/milestone-N-slug.md` (use the actual filename of the candidate). Set status to `current` while running, `done` when the done criterion is met."
-4. Prüfe die resultierende Summary gegen das `done`-Kriterium des Meilensteins:
+5. Prüfe die resultierende Summary gegen das `done`-Kriterium des Meilensteins:
    - Kriterium erfüllt → `done` bestätigen, nächsten `open`-Meilenstein zur Ausführung anbieten. Vor dem GSD-Statusblock kurz ausgeben:
      - **Abgeschlossen:** `milestone-N-slug`
      - **Erledigte To-dos:** Liste der `[x]`-Punkte aus dem `## To-dos`-Block des Meilensteins (oder „–" wenn kein Block vorhanden)
@@ -130,7 +134,7 @@ Vor dem Handeln immer relevante Dateien lesen:
      ```
        Befülle den Block aus dem Live-Zustand in `.planning/`. Liste nur Meilenstein-Namen auf — keine To-do-Details. Wenn das Backlog abgeschlossen ist, zeige `— (Backlog abgeschlossen)` bei Offen.
    - Blocker gemeldet → dem Nutzer melden; **Hicks** nur für diesen Meilenstein starten
-5. Bei Problemen: dem Nutzer melden und Neuausführung vorschlagen
+6. Bei Problemen: dem Nutzer melden und Neuausführung vorschlagen
 
 ---
 
@@ -190,6 +194,7 @@ Ad-hoc-Aufgabe ohne dedizierten Meilenstein — **maximal 2 Subagenten-Aufrufe**
 - Lies State-Dateien **vor** jedem Befehl — niemals von veraltetem Kontext ausgehen
 - Aktualisiere `STATE.md` nach jeder wichtigen Entscheidung oder bei einem Blocker
 - Meldet ein Subagent einen Blocker, sofort dem Nutzer melden — niemals stillschweigend überspringen
+- Große oder umbrellahafte Meilensteine werden vor der Ausführung aktiv in kleinere Einschübe zerlegt; `current` ist kein Freifahrtschein zum stumpfen Weitercodieren
 - Vor jedem Commit: `.vscode/agent-session.json` lesen — nur committen wenn `autoCommit: true`; bei `false` den vorgeschlagenen Commit-Message in der Summary ausweisen, aber **kein** `git commit` ausführen
 
 ## Git / GitHub CLI

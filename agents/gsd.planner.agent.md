@@ -45,11 +45,16 @@ Du erstellst `milestone-*.md`-Dateien für einen gegebenen Umfang. Jeder Meilens
 
 1. Erstelle **eine Meilenstein-Datei pro Arbeitseinheit** — lässt sich ein großer Umfang klar in 2–4 separate Einheiten aufteilen, erstelle mehrere Dateien mit fortlaufenden Nummern oder Einschub-Labels
 2. Bevorzuge **vertikale Schnitte** (vollständiges Feature von Ende zu Ende) gegenüber horizontalen Schichten (erst alle Modelle, dann alle APIs)
-3. Kein Meilenstein sollte mehr als 8–10 Dateien berühren
-4. Der **Status** aller neu erstellten Meilensteine muss `open` sein
-5. **Keine Meilenstein-Datei erstellen** für triviale Einzelschrittaufgaben (einzelner Commit, Einzeiler-Fix) — solche Aufgaben direkt behandeln
-6. Jeder Meilenstein muss ein eindeutiges `done`-Kriterium haben, das ohne Interpretationsspielraum verifiziert werden kann
-7. Jeder neue Meilenstein muss einen `## To-dos`-Block mit mindestens einem `[ ]`-Punkt enthalten, der direkt aus `## Action` ableitbar ist
+3. Plane standardmäßig **kleine, schnell ausführbare Meilensteine**: Zielgröße sind 2–5 Dateien, 2–4 To-dos und genau ein dominanter Änderungsfokus (z. B. Host-View, State-Wiring, Aktionsmigration oder Tests)
+4. Kein Meilenstein sollte mehr als 6 Dateien berühren; ab 7 Dateien oder mehr als 4 To-dos **muss** weiter aufgeteilt werden
+5. Kombiniert ein Scope mehrere Achsen wie UI-Umbau, State-/Bindings-Logik, Aktionsmigration, Lokalisierung und Tests, dann **niemals** als ein einzelner Meilenstein planen, sondern als kleine sequenzielle Einschübe
+6. Bevorzuge bei UI-Umbauten diese Reihenfolge: erst Host-/Strukturpfad, dann genau eine Interaktions- oder Zustandsfläche, dann restliche Aktionen/Polish/Tests
+7. Der **Status** aller neu erstellten Meilensteine muss `open` sein
+8. **Keine Meilenstein-Datei erstellen** für triviale Einzelschrittaufgaben (einzelner Commit, Einzeiler-Fix) — solche Aufgaben direkt behandeln
+9. Jeder Meilenstein muss ein eindeutiges `done`-Kriterium haben, das ohne Interpretationsspielraum verifiziert werden kann
+10. Jeder neue Meilenstein muss einen `## To-dos`-Block mit mindestens einem `[ ]`-Punkt enthalten, der direkt aus `## Action` ableitbar ist
+
+Wenn du einen bestehenden zu groben Meilenstein weiter zerlegst, behandle ihn als **zu ersetzenden Umbrella-Meilenstein**: Erzeuge kleinere Folge-Meilensteine mit Einschub-Labels in Ausführungsreihenfolge, erhalte das Gesamtziel in den Kindern und formuliere jedes Kind so, dass Xenomorph es in einem einzelnen Lauf realistisch abschließen kann.
 
 ## Ausgabe: `.planning/milestone-N-slug.md`
 

@@ -7,15 +7,22 @@ VS Code Copilot then picks up all agent and prompt files automatically.
 
 ## Structure
 
-```
+```text
 agents/    — GSD agent definitions (*.agent.md)
 prompts/   — GSD prompt files (*.prompt.md)
 ```
 
+## Execution model
+
+- Planning is intentionally biased toward small sequential milestones instead of broad umbrella steps.
+- Default target size per milestone: 2–5 files, 2–4 checklist items, one dominant change focus.
+- Before execution, Mother and the execute prompt run a preflight. Oversized milestones are sent back to Bishop for decomposition instead of being forced through Xenomorph.
+- Xenomorph now treats oversized milestones as a planning blocker and escalates them for splitting before coding begins.
+
 ## Agents
 
 | File | Agent | Role |
-|------|-------|------|
+| ---- | ----- | ---- |
 | `agents/gsd.orchestrator.agent.md` | 🧠 Mother (GSD Coordinator) | Central orchestration — spawns all other agents |
 | `agents/gsd.researcher.agent.md` | 🔎 Ripley (GSD Researcher) | Brownfield investigation, produces RESEARCH.md |
 | `agents/gsd.planner.agent.md` | ♟️ Bishop (GSD Planner) | Decomposes phases into atomic PLAN.md files |
@@ -26,7 +33,7 @@ prompts/   — GSD prompt files (*.prompt.md)
 ## Prompts
 
 | File | Description |
-|------|-------------|
+| ---- | ----------- |
 | `prompts/gsd-new-project.prompt.md` | Initialize a new project or milestone |
 | `prompts/gsd-plan-phase.prompt.md` | Plan a phase — research + atomic PLAN.md files |
 | `prompts/gsd-execute-phase.prompt.md` | Execute a phase — dependency waves + verification |
