@@ -1,10 +1,10 @@
 ---
 agent: 'ask'
-description: 'GSD: Show current project progress — milestone backlog grouped by Current/Open/Done, plus blockers. Shows todo checklist for the current milestone and todo counters for open milestones.'
+description: 'GSD: Zeigt den aktuellen Projektfortschritt — Meilenstein-Backlog gruppiert nach Aktuell/Offen/Erledigt plus Blocker. Enthält die To-do-Checkliste des aktuellen Meilensteins und To-do-Zähler für offene Meilensteine.'
 tools: ['read']
 ---
 
-Read the following files from `.planning/` and present a clear progress summary:
+Lies die folgenden Dateien aus `.planning/` und präsentiere eine klare Fortschrittsübersicht:
 
 1. **All `.planning/milestone-*.md`** — sorted by numeric stem, then alphabetic suffix. For each, read the `status` frontmatter field, the milestone name, and the `## To-dos` section (if present).
 2. **`.planning/STATE.md`** — show open questions and blockers
@@ -14,37 +14,31 @@ Read the following files from `.planning/` and present a clear progress summary:
 ```
 ## GSD Progress
 
-### Current
-- milestone-N-slug.md: [Name] 🔄
-  To-dos:
-  - [x] Erledigter Schritt
-  - [ ] Noch offener Schritt
-  (all todo lines from ## To-dos shown with their [x]/[ ] state)
+- **Aktuell:** `milestone-N-slug` 🔄 — [Name]
+- **Offen:** `milestone-A-slug`, `milestone-B-slug` _(N verbleibend)_
+- **Erledigt:** N Meilensteine ✅ _(zuletzt: `milestone-X-slug`)_
+- **Blockiert:** — _(oder blockierte Meilenstein-Namen mit 🚫 auflisten)_
+- **Nächster Schritt:** [Eine klare nächste Aktion]
 
-### Open
+---
+
+### Aktuelle To-dos
+- [x] Erledigter Schritt
+- [ ] Noch offener Schritt
+(alle To-do-Zeilen aus `## To-dos` des aktuellen Meilensteins mit ihrem exakten `[x]`-/`[ ]`-Status)
+
+### Offene Meilensteine
 - milestone-N-slug.md: [Name] ⏳  [2/5 To-dos erledigt]
     offene Punkte: Schritt C, Schritt D, Schritt E
-- milestone-N-slug.md: [Name] ⏳  [0/3 To-dos erledigt]
-  (for open milestones: show N/M counter; if compact, also list the open [ ] items)
 
-### Done
-- milestone-N-slug.md: [Name] ✅
-- ...
-
-### Blocked
-- milestone-N-slug.md: [Name] 🚫 — [blocker description]
-
-### Blockers (from STATE.md)
-- [open questions and blockers]
-
-### Next Step
-[Single clear action to take]
+### Blocker (aus STATE.md)
+- [offene Fragen und Blocker]
 ```
 
 **To-do display rules:**
-- **Current milestone:** Show every entry of the `## To-dos` list with its exact `[x]` or `[ ]` state.
-- **Open milestones:** Show a counter (`N/M To-dos erledigt`) next to the name. If the milestone has open items and the output remains compact, also list those open `[ ]` items beneath.
-- **Done/Blocked milestones:** No todo detail needed — a count summary is fine.
-- If a milestone has no `## To-dos` section, omit the todo lines silently.
+- **Aktueller Meilenstein:** Zeige jeden Eintrag aus der `## To-dos`-Liste mit seinem exakten `[x]`- oder `[ ]`-Status.
+- **Offene Meilensteine:** Zeige einen Zähler (`N/M To-dos erledigt`) neben dem Namen. Wenn der Meilenstein offene Punkte hat und die Ausgabe kompakt bleibt, liste diese offenen `[ ]`-Punkte zusätzlich darunter auf.
+- **Erledigte/Blockierte Meilensteine:** Keine To-do-Details nötig — eine knappe Zählsumme reicht.
+- Wenn ein Meilenstein keinen Abschnitt `## To-dos` hat, lass die To-do-Zeilen stillschweigend weg.
 
-> **Note:** Legacy files (`1-1-PLAN.md`, `1-2-PLAN.md`, etc.) are preserved but not part of the active backlog. Do not include them in the progress output. Milestone files in legacy bare-number format (`milestone-N.md`, `milestone-Na.md`) are still active backlog files — include them sorted by numeric stem then alpha suffix.
+> **Hinweis:** Legacy-Dateien (`1-1-PLAN.md`, `1-2-PLAN.md` usw.) bleiben erhalten, gehören aber nicht zum aktiven Backlog. Nimm sie nicht in die Fortschrittsausgabe auf. Meilenstein-Dateien im Legacy-Format ohne sprechenden Namen (`milestone-N.md`, `milestone-Na.md`) gehören weiterhin zum aktiven Backlog — beziehe sie sortiert nach numerischem Stem und Alpha-Suffix ein.

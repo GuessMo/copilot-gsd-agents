@@ -9,7 +9,7 @@ model:
     - Claude Sonnet 4.6
     - GPT-5.4
 handoffs:
-  - label: Return Findings to Mother
+  - label: Ergebnisse an Mother zurückgeben
     agent: 🧠 Mother (GSD Coordinator)
     prompt: Resume orchestration with the MCP results returned above.
     send: false
