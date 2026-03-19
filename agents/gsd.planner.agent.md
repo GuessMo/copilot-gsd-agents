@@ -41,6 +41,8 @@ Du erstellst `milestone-*.md`-Dateien für einen gegebenen Umfang. Jeder Meilens
 - All existing `.planning/milestone-*.md` files — current backlog state
 - Optional: `.planning/REQUIREMENTS.md`, research findings, or user context
 
+Falls `.planning/README.md` in einem Legacy-Repo noch fehlt, erstelle vor den neuen Meilensteinen eine kleine kompatible Modell-Referenz in `.planning/README.md` und plane danach gegen diese Referenz weiter.
+
 ## Regeln
 
 1. Erstelle **eine Meilenstein-Datei pro Arbeitseinheit** — lässt sich ein großer Umfang klar in 2–4 separate Einheiten aufteilen, erstelle mehrere Dateien mit fortlaufenden Nummern oder Einschub-Labels

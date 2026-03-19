@@ -26,6 +26,26 @@ Fully understand what should be built and create an initial milestone backlog fo
 
 3. **Create planning context files yourself** in `.planning/` (no subagent — you have all the information from the intake):
 
+   **`README.md`**
+   ```markdown
+   # Planning README
+
+   ## Purpose
+   [Milestone model reference for naming, format, sizing, status values, and commit behavior]
+
+   ## File Naming
+   [Preferred `milestone-N-slug.md` and insertion rules like `milestone-2a-slug.md`]
+
+   ## Required Milestone Format
+   [YAML status header, Goal, Files, Action, To-dos, Verify, Done, Commit Message]
+
+   ## Sizing Rules
+   [2-5 files, 2-4 todos, one dominant focus; split umbrellas aggressively]
+
+   ## Commit Behavior
+   [Respect `.vscode/agent-session.json` and only commit with `autoCommit: true`]
+   ```
+
    **`PROJECT.md`**
    ```markdown
    # Project: [Name]

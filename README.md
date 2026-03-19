@@ -28,7 +28,6 @@ prompts/   — GSD prompt files (*.prompt.md)
 | `agents/gsd.planner.agent.md` | ♟️ Bishop (GSD Planner) | Decomposes phases into atomic PLAN.md files |
 | `agents/gsd.executor.agent.md` | 👾 Xenomorph (GSD Executor) | Implements exactly one PLAN.md, no improvisation |
 | `agents/gsd.verifier.agent.md` | ✅ Hicks (GSD Verifier) | Ground-truth verification against done criteria |
-| `agents/gsd.integration.agent.md` | 🔗 Ash (GSD Integration) | Bridge to Jira, Confluence, and Figma via MCP |
 
 ## Prompts
 
